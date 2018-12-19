@@ -14,7 +14,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Wifibot extends TelegramLongPollingBot {
 	
-	private static final String WIRESHARK_DIR_PATH = "files";
+	private String rutaFicheros;
+	
+	public Wifibot() {
+		rutaFicheros = readFile("files/ruta.txt");
+	}
 	
 	@Override
 	public String getBotUsername() {
@@ -56,7 +60,7 @@ public class Wifibot extends TelegramLongPollingBot {
 	}
 	
 	private String findLatestFile() {
-		File dir = new File(WIRESHARK_DIR_PATH);
+		File dir = new File(rutaFicheros);
 		File[] list = dir.listFiles();
 		if(list.length > 0) {
 			File lastFileModified = list[0];
@@ -96,7 +100,7 @@ public class Wifibot extends TelegramLongPollingBot {
 				customPassword = "password=";
 				break;
 			default:
-				System.out.println("Página web no válida: " + web + " (Línea " + (i + 1) + ").");
+				System.out.println("Página web no válida: " + web + " (Línea " + (i + 1) + ")");
 				continue;
 			}
 			
